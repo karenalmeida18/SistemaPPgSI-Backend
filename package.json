@@ -30,6 +30,7 @@
     "eslint-plugin-import": "^2.24.0",
     "husky": "^4.2.5",
     "lint-staged": "^11.1.2",
-    "nodemon": "^2.0.12"
+    "nodemon": "^2.0.12",
+    "sequelize-cli": "^6.2.0"
   }
 }
