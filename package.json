@@ -9,7 +9,7 @@
     "start": "node ./src/server.js"
   },
   "lint-staged": {
-    "*.{js}": "eslint"
+    "*.js": "eslint"
   },
   "husky": {
     "hooks": {
