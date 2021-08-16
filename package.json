@@ -8,12 +8,25 @@
     "dev": "nodemon src/server.js",
     "start": "node ./src/server.js"
   },
+  "lint-staged": {
+    "*.{js}": "eslint"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1"
   },
   "devDependencies": {
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.24.0",
+    "husky": "^4.2.5",
+    "lint-staged": "^11.1.2",
     "nodemon": "^2.0.12"
   }
 }
