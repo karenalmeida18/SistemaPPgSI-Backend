@@ -1,11 +1,20 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('users', {
-      usp_code: {
+      id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         allowNull: false,
       },
+      usp_code: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      name: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+
       user_type: {
         type: Sequelize.ENUM(['ccp', 'advisor', 'student']),
         allowNull: false,
