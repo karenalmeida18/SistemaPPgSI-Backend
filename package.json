@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon src/server.js",
-    "start": "node ./src/server.js"
+    "test": "NODE_ENV=test jest",
+    "dev": "nodemon src/server.js --ignore __tests__",
+    "start": "node ./src/server.js --trace-warnings"
   },
   "lint-staged": {
     "*.js": "eslint"
@@ -29,8 +29,10 @@
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.24.0",
     "husky": "^4.2.5",
+    "jest": "^27.0.6",
     "lint-staged": "^11.1.2",
     "nodemon": "^2.0.12",
-    "sequelize-cli": "^6.2.0"
+    "sequelize-cli": "^6.2.0",
+    "sqlite3": "^5.0.2"
   }
 }
