@@ -3,16 +3,22 @@ const app = require('../../src/server');
 
 describe('Testing user crud ', () => {
   it('Should create a new user', async () => {
-    const response = await request(app)
+    const { body } = await request(app)
+      .post('/user/create')
+      .send({
+        name: 'Karen Almeida', usp_code: '18', user_type: 'student', password: '123',
+      });
+
+    expect(body).toHaveProperty('id');
+  });
+
+  it('Should not be able to create a user if already exist', async () => {
+    await request(app)
       .post('/user/create')
       .send({
         name: 'Gabriela Sinastre', usp_code: '1234', user_type: 'student', password: '123',
       });
 
-    expect(response).toHaveProperty('id');
-  });
-
-  it('Should not be able to create a user', async () => {
     const { status } = await request(app)
       .post('/user/create')
       .send({
@@ -20,5 +26,12 @@ describe('Testing user crud ', () => {
       });
 
     expect(status).toBe(400);
+  });
+
+  it('Should list all users', async () => {
+    const response = await request(app)
+      .get('/user/read');
+
+    expect(response.status).toBe(200);
   });
 });
