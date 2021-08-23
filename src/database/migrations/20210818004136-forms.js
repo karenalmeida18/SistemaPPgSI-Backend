@@ -1,7 +1,7 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('forms', {
-      form_id: {
+      id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         allowNull: false,

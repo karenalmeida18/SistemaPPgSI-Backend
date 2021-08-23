@@ -1,7 +1,7 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('evaluation', {
-      answers_code: {
+    await queryInterface.createTable('evaluations', {
+      id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         allowNull: false,
@@ -11,21 +11,21 @@ module.exports = {
         type: Sequelize.TEXT,
         allowNull: false,
       },
-      ressalva: {
+      selfguard: {
         type: Sequelize.TEXT,
         allowNull: true,
       },
       usp_code: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: { model: 'users', key: 'usp_code' },
+        references: { model: 'users', key: 'id' },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
       form_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: { model: 'forms', key: 'form_id' },
+        references: { model: 'forms', key: 'id' },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
@@ -33,6 +33,6 @@ module.exports = {
   },
 
   down: async (queryInterface) => {
-    await queryInterface.dropTable('evaluation');
+    await queryInterface.dropTable('evaluations');
   },
 };
