@@ -1,3 +1,4 @@
+const { hash } = require('bcryptjs');
 const User = require('../models/User');
 
 module.exports = {
@@ -10,9 +11,13 @@ module.exports = {
       const userExists = await User.findOne({ where: { usp_code } });
       if (userExists) return res.status(400).json({ msg: 'User already exist' });
 
+      const passwordHash = await hash(password, 8);
+
       const user = await User.create({
-        name, usp_code, password, user_type,
+        name, usp_code, password: passwordHash, user_type,
       });
+
+      delete user.password;
 
       return res.status(200).json(user);
     } catch (error) {
