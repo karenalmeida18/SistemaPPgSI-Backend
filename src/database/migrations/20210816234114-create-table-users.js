@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('users', {
@@ -5,6 +7,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         primaryKey: true,
         allowNull: false,
+        autoIncrement: true,
       },
       usp_code: {
         type: Sequelize.INTEGER,
@@ -14,17 +17,14 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-
       user_type: {
         type: Sequelize.ENUM(['ccp', 'advisor', 'student']),
         allowNull: false,
       },
-
       password: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-
     });
   },
 
