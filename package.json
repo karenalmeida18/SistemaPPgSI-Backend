@@ -11,7 +11,7 @@
     "dev": "nodemon src/server.js --ignore __tests__",
     "start": "node ./src/server.js --trace-warnings",
     "pretest": "NODE_ENV=test sequelize db:migrate",
-    "test": "NODE_ENV=test jest",
+    "test": "NODE_ENV=test jest --maxWorkers=1",
     "posttest": "NODE_ENV=test sequelize db:migrate:undo:all"
   },
   "lint-staged": {

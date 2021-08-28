@@ -34,4 +34,21 @@ module.exports = {
       return res.status(500).json({ msg: 'Internal server error' });
     }
   },
+
+  async delete(req, res) {
+    try {
+      const { id } = req.params;
+      if (!id) return res.status(400).json({ msg: 'Missing id' });
+
+      const user = await User.findByPk(id);
+
+      if (!user) return res.status(404).json({ msg: 'User not found' });
+
+      user.destroy();
+
+      return res.status(200).json('user deleted');
+    } catch (error) {
+      return res.status(500).json({ msg: 'Internal server error' });
+    }
+  },
 };

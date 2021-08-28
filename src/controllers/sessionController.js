@@ -1,6 +1,7 @@
 const { compare } = require('bcryptjs');
 const { sign } = require('jsonwebtoken');
 const User = require('../models/User');
+const authJwt = require('../config/auth');
 
 module.exports = {
   async create(req, res) {
@@ -14,14 +15,13 @@ module.exports = {
       if (!passwordMatch) return res.status(400).json({ msg: 'Incorrect code/password combination.' });
 
       delete user.password;
-      const token = sign({}, 'e0a1db94e47c5ce771c633ea2f2c0930', {
+      const token = sign({}, authJwt.secret, {
         subject: user.id.toString(),
         expiresIn: '1d',
       });
 
       return res.status(200).json({ user, token });
     } catch (error) {
-      console.log(error);
       return res.status(500).json({ msg: 'Internal server error' });
     }
   },
