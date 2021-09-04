@@ -27,6 +27,7 @@ module.exports = {
 
   async read(req, res) {
     try {
+      console.log(req);
       const allUser = await User.findAll();
       if (allUser.length === 0) return res.status(404).json({ msg: 'No users found' });
       return res.status(200).json(allUser);

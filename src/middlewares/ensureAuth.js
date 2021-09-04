@@ -9,10 +9,10 @@ module.exports = async (req, res, next) => {
   const [, token] = authHeader.split(' ');
 
   try {
-    const { sub } = verify(token, authJwt.secret);
-
+    const { sub, user_type } = verify(token, authJwt.secret);
     req.user = {
       id: sub,
+      user_type,
     };
 
     return next();
