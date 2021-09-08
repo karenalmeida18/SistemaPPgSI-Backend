@@ -27,7 +27,6 @@ module.exports = {
 
   async read(req, res) {
     try {
-      console.log(req);
       const allUser = await User.findAll();
       if (allUser.length === 0) return res.status(404).json({ msg: 'No users found' });
       return res.status(200).json(allUser);
@@ -37,15 +36,15 @@ module.exports = {
   },
 
   async delete(req, res) {
+    const { id } = req.params;
     try {
-      const { id } = req.params;
       if (!id) return res.status(400).json({ msg: 'Missing id' });
 
       const user = await User.findByPk(id);
 
       if (!user) return res.status(404).json({ msg: 'User not found' });
 
-      user.destroy();
+      await user.destroy();
 
       return res.status(200).json('user deleted');
     } catch (error) {

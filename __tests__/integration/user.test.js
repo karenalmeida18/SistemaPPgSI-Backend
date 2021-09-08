@@ -32,6 +32,26 @@ describe('Testing user crud ', () => {
     expect(status).toBe(400);
   });
 
+  it('Should be able to delete a user', async () => {
+    const { body } = await request(app)
+      .post('/user/create')
+      .send({
+        name: 'Leandro', usp_code: '50', user_type: 'student', password: '123',
+      });
+
+    const { body: { token } } = await request(app)
+      .post('/user/login')
+      .send({
+        usp_code: '50', password: '123',
+      });
+
+    const { status } = await request(app)
+      .delete(`/user/delete/${body.id}`)
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(status).toBe(200);
+  });
+
   /* it('Should list all users', async () => {
     const response = await request(app)
       .get('/user/read');

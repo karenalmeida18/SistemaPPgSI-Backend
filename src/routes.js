@@ -10,7 +10,7 @@ routes.get('/', (req, res) => res.json({ message: 'Hello world' }));
 
 routes.post('/user/create', UserController.create);
 routes.get('/user/read', ensureAuthMiddleware, UserController.read);
-routes.delete('/user/delete', ensureAuthMiddleware, UserController.delete);
+routes.delete('/user/delete/:id', ensureAuthMiddleware, UserController.delete);
 
 routes.post('/user/login', SessionController.create);
 
