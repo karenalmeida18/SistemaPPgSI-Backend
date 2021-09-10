@@ -2,6 +2,7 @@ const { Router } = require('express');
 const UserController = require('./controllers/userController');
 const SessionController = require('./controllers/sessionController');
 const FormController = require('./controllers/formController');
+const AnswerController = require('./controllers/answerController');
 
 const ensureAuthMiddleware = require('./middlewares/ensureAuth');
 const QuestionController = require('./controllers/questionController');
@@ -24,5 +25,9 @@ routes.get('/form/index/:id', ensureAuthMiddleware, FormController.index);
 // Question
 routes.post('/question/create/:form_id', ensureAuthMiddleware, QuestionController.create);
 routes.get('/question/index/:form_id', ensureAuthMiddleware, QuestionController.index);
+
+// Answer
+routes.post('/answer/create/:question_id', ensureAuthMiddleware, AnswerController.create);
+routes.get('/answer/read/:question_id', ensureAuthMiddleware, AnswerController.read);
 
 module.exports = routes;

@@ -1,9 +1,10 @@
 const { Model, DataTypes } = require('sequelize');
 
-class Answer extends Model {
+class Evaluation extends Model {
   static init(connection) {
     super.init({
-      answer: DataTypes.TEXT,
+      note: DataTypes.TEXT,
+      selfguard: DataTypes.TEXT,
     }, {
       sequelize: connection,
     });
@@ -11,8 +12,8 @@ class Answer extends Model {
 
   static associate(models) {
     this.belongsTo(models.User, { foreignKey: 'usp_code', as: 'users' });
-    this.belongsTo(models.Question, { foreignKey: 'question_id', as: 'questions' });
+    this.belongsTo(models.Form, { foreignKey: 'form_id', as: 'forms' });
   }
 }
 
-module.exports = Answer;
+module.exports = Evaluation;

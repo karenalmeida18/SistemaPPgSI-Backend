@@ -30,11 +30,18 @@ module.exports = {
       const form = await Form.findByPk(form_id);
       if (!form) return res.status(403).json({ msg: 'form not found' });
 
-      const questions = await Question.findAll({ where: { form_id } });
+      const questions = await Question.findAll({
+        where: { form_id },
+        include: [{
+          association: 'answers',
+          required: false,
+        }],
+      });
       if (questions.length === 0) return res.status(404).json({ msg: 'No questions found' });
 
       return res.status(200).json(questions);
     } catch (error) {
+      console.log(error);
       return res.status(500).json({ msg: 'Internal server error' });
     }
   },
