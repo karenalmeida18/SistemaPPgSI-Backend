@@ -50,7 +50,12 @@ module.exports = {
 
   async list(req, res) {
     try {
-      const { id: form_id } = await Form.findOne({ where: { enabled: true } });
+      const form = await Form.findOne({ where: { enabled: true } });
+      const {
+        id: form_id,
+      } = form || {};
+      if (!form_id) return res.status(404).json({ msg: 'No forms found' });
+
       const questions = await Question.findAll({
         where: { form_id },
       });
