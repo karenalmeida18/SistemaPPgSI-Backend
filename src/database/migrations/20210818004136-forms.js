@@ -9,6 +9,14 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
       },
+      name: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      enabled: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
+      },
       created_at: {
         type: Sequelize.DATE,
         defaultValue: Sequelize.NOW,
