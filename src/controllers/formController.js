@@ -2,7 +2,7 @@ const Form = require('../models/Form');
 
 module.exports = {
   async create(req, res) {
-    const { name, enabled } = req.params;
+    const { name, enabled } = req.body;
     const { user: { user_type } } = req;
     if (user_type !== 'ccp') return res.status(403).json({ msg: 'forbidden' });
 
