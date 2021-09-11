@@ -28,6 +28,7 @@ routes.get('/question/index/:form_id', ensureAuthMiddleware, QuestionController.
 
 // Answer
 routes.post('/answer/create/:question_id', ensureAuthMiddleware, AnswerController.create);
+routes.post('/answer/multcreate', ensureAuthMiddleware, AnswerController.createAnswers);
 routes.get('/answer/read/:question_id', ensureAuthMiddleware, AnswerController.read);
 
 module.exports = routes;

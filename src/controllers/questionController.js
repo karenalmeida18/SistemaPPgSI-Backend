@@ -32,10 +32,10 @@ module.exports = {
 
       const questions = await Question.findAll({
         where: { form_id },
-        include: [{
+        include: {
           association: 'answers',
           required: false,
-        }],
+        },
       });
       if (questions.length === 0) return res.status(404).json({ msg: 'No questions found' });
 

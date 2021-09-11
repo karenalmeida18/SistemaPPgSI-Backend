@@ -39,4 +39,35 @@ module.exports = {
     }
   },
 
+  async createAnswers(req, res) {
+    const { id } = req.user;
+    const { answers } = req.body;
+    try {
+      const createdAnswers = [];
+      const promiseAnswer = async ({ question_id, answer }) => {
+        if (!answer) throw new Error('missing answer');
+        const question = await Question.findByPk(question_id);
+        if (!question) throw new Error('question not found');
+        const createdAnswer = await Answer.create({ usp_code: id, question_id, answer });
+        createdAnswers.push(createdAnswer);
+        return null;
+      };
+
+      const promises = [];
+      answers.forEach(({ question_id, answer }) => {
+        promises.push(promiseAnswer({ question_id, answer }));
+      });
+
+      await Promise.all(promises).then((values) => console.log(values))
+        .catch(() => console.log(createdAnswers));
+
+      console.log({ createdAnswers });
+
+      return res.status(200).json('form answered successfully');
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({ msg: 'Internal server error' });
+    }
+  },
+
 };
