@@ -3,6 +3,7 @@ const UserController = require('./controllers/userController');
 const SessionController = require('./controllers/sessionController');
 const FormController = require('./controllers/formController');
 const AnswerController = require('./controllers/answerController');
+const EvaluationController = require('./controllers/evaluationController');
 
 const ensureAuthMiddleware = require('./middlewares/ensureAuth');
 const QuestionController = require('./controllers/questionController');
@@ -31,5 +32,9 @@ routes.get('/question/read', ensureAuthMiddleware, QuestionController.list);
 routes.post('/answer/create/:question_id', ensureAuthMiddleware, AnswerController.create);
 routes.post('/answer/multcreate', ensureAuthMiddleware, AnswerController.createAnswers);
 routes.get('/answer/read/:question_id', ensureAuthMiddleware, AnswerController.read);
+
+// Evaluation
+routes.post('/evaluate/create/:form_id', ensureAuthMiddleware, EvaluationController.create);
+routes.get('/evaluate/read/:form_id', ensureAuthMiddleware, EvaluationController.read);
 
 module.exports = routes;

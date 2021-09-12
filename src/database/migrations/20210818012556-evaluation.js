@@ -9,11 +9,19 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
       },
-      note: {
+      note_advisor: {
         type: Sequelize.TEXT,
         allowNull: false,
       },
-      selfguard: {
+      note_ccp: {
+        type: Sequelize.TEXT,
+        allowNull: false,
+      },
+      selfguard_advisor: {
+        type: Sequelize.TEXT,
+        allowNull: true,
+      },
+      selfguard_ccp: {
         type: Sequelize.TEXT,
         allowNull: true,
       },

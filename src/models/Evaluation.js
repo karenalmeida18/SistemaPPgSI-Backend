@@ -3,8 +3,10 @@ const { Model, DataTypes } = require('sequelize');
 class Evaluation extends Model {
   static init(connection) {
     super.init({
-      note: DataTypes.TEXT,
-      selfguard: DataTypes.TEXT,
+      note_advisor: DataTypes.TEXT,
+      note_ccp: DataTypes.TEXT,
+      selfguard_advisor: DataTypes.TEXT,
+      selfguard_ccp: DataTypes.TEXT,
     }, {
       sequelize: connection,
     });
