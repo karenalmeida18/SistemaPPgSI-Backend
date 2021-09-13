@@ -13,7 +13,7 @@ module.exports = {
         type: Sequelize.TEXT,
         allowNull: false,
       },
-      usp_code: {
+      user_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: { model: 'users', key: 'id' },

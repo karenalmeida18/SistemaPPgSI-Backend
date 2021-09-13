@@ -33,7 +33,7 @@ describe('Testing question crud ', () => {
     const { status } = await request(app)
       .post('/answer/create/1')
       .send({
-        answer: 'resposta', usp_code: `${id}`, question_id: '1',
+        answer: 'resposta', user_id: `${id}`, question_id: '1',
       })
       .set('Authorization', `Bearer ${token}`);
 
@@ -67,7 +67,7 @@ describe('Testing question crud ', () => {
     await request(app)
       .post('/answer/create/1')
       .send({
-        answer: 'resposta', usp_code: `${id}`, question_id: '1',
+        answer: 'resposta', user_id: `${id}`, question_id: '1',
       })
       .set('Authorization', `Bearer ${token}`);
 

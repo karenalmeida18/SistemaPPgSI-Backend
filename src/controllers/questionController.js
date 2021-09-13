@@ -43,7 +43,6 @@ module.exports = {
 
       return res.status(200).json(questions);
     } catch (error) {
-      console.log(error);
       return res.status(500).json({ msg: 'Internal server error' });
     }
   },
@@ -63,7 +62,6 @@ module.exports = {
 
       return res.status(200).json(questions);
     } catch (error) {
-      console.log(error);
       return res.status(500).json({ msg: 'Internal server error' });
     }
   },

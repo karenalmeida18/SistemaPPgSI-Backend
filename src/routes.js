@@ -36,5 +36,6 @@ routes.get('/answer/read/:question_id', ensureAuthMiddleware, AnswerController.r
 // Evaluation
 routes.post('/evaluate/create/:form_id', ensureAuthMiddleware, EvaluationController.create);
 routes.get('/evaluate/read/:form_id', ensureAuthMiddleware, EvaluationController.read);
+routes.get('/evaluate/list/:form_id', ensureAuthMiddleware, EvaluationController.list);
 
 module.exports = routes;

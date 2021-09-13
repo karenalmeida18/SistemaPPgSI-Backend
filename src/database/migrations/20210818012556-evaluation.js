@@ -11,11 +11,11 @@ module.exports = {
       },
       note_advisor: {
         type: Sequelize.TEXT,
-        allowNull: false,
+        allowNull: true,
       },
       note_ccp: {
         type: Sequelize.TEXT,
-        allowNull: false,
+        allowNull: true,
       },
       selfguard_advisor: {
         type: Sequelize.TEXT,
@@ -25,7 +25,7 @@ module.exports = {
         type: Sequelize.TEXT,
         allowNull: true,
       },
-      usp_code: {
+      user_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: { model: 'users', key: 'id' },
