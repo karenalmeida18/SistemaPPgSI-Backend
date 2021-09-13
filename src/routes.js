@@ -26,6 +26,7 @@ routes.get('/form/index/:id', ensureAuthMiddleware, FormController.index);
 // Question
 routes.post('/question/create/:form_id', ensureAuthMiddleware, QuestionController.create);
 routes.get('/question/index/:form_id', ensureAuthMiddleware, QuestionController.index);
+routes.get('/question/readByUserId/:form_id', ensureAuthMiddleware, QuestionController.listByUserId);
 routes.get('/question/read', ensureAuthMiddleware, QuestionController.list);
 
 // Answer
