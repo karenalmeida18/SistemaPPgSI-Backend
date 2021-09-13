@@ -27,6 +27,7 @@ module.exports = {
         where: { question_id, user_id: id },
         include: [{
           association: 'users',
+          attributes: ['name', 'usp_code'],
           required: false,
         }],
       });

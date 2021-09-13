@@ -46,11 +46,18 @@ module.exports = {
 
   async list(req, res) {
     const { user: { user_type } } = req;
-    if (user_type !== 'ccp') return res.status(403).json('forbidden');
+    if ((user_type !== 'ccp') && (user_type !== 'advisor')) return res.status(403).json('forbidden');
 
     const { form_id } = req.params;
     try {
-      const evaluation = await Evaluation.findAll({ where: { form_id } });
+      const evaluation = await Evaluation.findAll({
+        where: { form_id },
+        include: {
+          association: 'users',
+          attributes: ['name', 'usp_code'],
+          required: false,
+        },
+      });
       if (!evaluation) return res.status(400).json({ msg: 'evaluation not found' });
       return res.status(200).json(evaluation);
     } catch (error) {
