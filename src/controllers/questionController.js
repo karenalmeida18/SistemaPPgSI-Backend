@@ -52,7 +52,7 @@ module.exports = {
     if (user_type !== 'ccp' && user_type !== 'advisor') return res.status(403).json({ msg: 'forbidden' });
 
     const { form_id } = req.params;
-    const { user_id } = req.body;
+    const { user_id } = req.query;
 
     try {
       const form = await Form.findByPk(form_id);
