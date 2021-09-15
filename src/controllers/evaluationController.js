@@ -10,19 +10,30 @@ module.exports = {
     const { form_id } = req.params;
 
     try {
+      const exist_adv_evaluation = await Evaluation.findOne({ where: { user_id, form_id } });
+      /* if (exist_adv_evaluation) {
+        const evaluation = Evaluation.findByPk(exist_adv_evaluation.id);
+      } */
       if ((user_type === 'advisor')) {
         if (!note_advisor) return res.status(400).json({ msg: ' missing the note of the evaluation' });
-        await Evaluation.create({
-          note_advisor, selfguard_advisor, user_id, form_id, note_ccp, selfguard_ccp,
-        });
+        if (!exist_adv_evaluation) {
+          await Evaluation.create({
+            note_advisor, selfguard_advisor, user_id, form_id,
+          });
+          return res.status(200).json({ msg: 'advisor evaluation successed' });
+        }
+        await exist_adv_evaluation.update({ note_advisor, selfguard_advisor });
         return res.status(200).json({ msg: 'advisor evaluation successed' });
       }
       if ((user_type === 'ccp')) {
         if (!note_ccp) return res.status(400).json({ msg: ' missing the note of the evaluation' });
-        // const exist_adv_evaluation = Evaluation.findOne({ where: {} });... check maybe later
-        await Evaluation.create({
-          note_advisor, selfguard_advisor, user_id, form_id, note_ccp, selfguard_ccp,
-        });
+        if (!exist_adv_evaluation) {
+          await Evaluation.create({
+            user_id, form_id, note_ccp, selfguard_ccp,
+          });
+          return res.status(200).json({ msg: 'ccp evaluation successed' });
+        }
+        await exist_adv_evaluation.update({ note_ccp, selfguard_ccp });
         return res.status(200).json({ msg: 'ccp evaluation successed' });
       }
       return res.status(403).json('forbidden');
