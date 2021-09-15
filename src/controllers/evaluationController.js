@@ -10,6 +10,7 @@ module.exports = {
     const { form_id } = req.params;
 
     try {
+      if (!user_id || !form_id) return res.status(400).json({ msg: ' missing fields' });
       const exist_adv_evaluation = await Evaluation.findOne({ where: { user_id, form_id } });
       /* if (exist_adv_evaluation) {
         const evaluation = Evaluation.findByPk(exist_adv_evaluation.id);
