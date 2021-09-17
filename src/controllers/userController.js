@@ -4,7 +4,7 @@ const User = require('../models/User');
 module.exports = {
   async create(req, res) {
     const {
-      name, usp_code, user_type, password,
+      name, usp_code, user_type, password, email, lattes, lattes_date, advisor, course,
     } = req.body;
 
     try {
@@ -14,13 +14,22 @@ module.exports = {
       const passwordHash = await hash(password, 8);
 
       const user = await User.create({
-        name, usp_code, password: passwordHash, user_type,
+        name,
+        usp_code,
+        password: passwordHash,
+        user_type,
+        email,
+        lattes,
+        lattes_date,
+        advisor,
+        course,
       });
 
       delete user.password;
 
       return res.status(200).json(user);
     } catch (error) {
+      console.log(error);
       return res.status(500).json({ msg: 'Internal server error' });
     }
   },
@@ -47,6 +56,32 @@ module.exports = {
       await user.destroy();
 
       return res.status(200).json('user deleted');
+    } catch (error) {
+      return res.status(500).json({ msg: 'Internal server error' });
+    }
+  },
+
+  async info(req, res) {
+    const { id } = req.user;
+    try {
+      const info = await User.findByPk(id, { attributes: ['usp_code', 'name', 'user_type', 'email', 'lattes', 'lattes_date', 'advisor', 'course'] });
+      return res.status(200).json(info);
+    } catch (error) {
+      return res.status(500).json({ msg: 'Internal server error' });
+    }
+  },
+
+  async infoupdate(req, res) {
+    const {
+      name, email, lattes, lattes_date, advisor, course,
+    } = req.body;
+    const { id } = req.user;
+    try {
+      const info = await User.findByPk(id);
+      info.update({
+        name, email, lattes, lattes_date, advisor, course,
+      });
+      return res.status(200).json(info);
     } catch (error) {
       return res.status(500).json({ msg: 'Internal server error' });
     }

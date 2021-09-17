@@ -25,6 +25,26 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      email: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      lattes: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      lattes_date: {
+        type: Sequelize.DATE,
+        allowNull: true,
+      },
+      advisor: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      course: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
       created_at: {
         type: Sequelize.DATE,
         defaultValue: Sequelize.NOW,

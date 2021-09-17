@@ -17,6 +17,8 @@ routes.post('/user/create', UserController.create);
 routes.get('/user/read', ensureAuthMiddleware, UserController.read);
 routes.delete('/user/delete/:id', ensureAuthMiddleware, UserController.delete);
 routes.post('/user/login', SessionController.create);
+routes.get('/user/info', ensureAuthMiddleware, UserController.info);
+routes.post('/user/infoup', ensureAuthMiddleware, UserController.infoupdate);
 
 // Form
 routes.post('/form/create', ensureAuthMiddleware, FormController.create);
