@@ -24,12 +24,16 @@ routes.get('/user/info', ensureAuthMiddleware, UserController.info);
 routes.post('/form/create', ensureAuthMiddleware, FormController.create);
 routes.get('/form/read', ensureAuthMiddleware, FormController.read);
 routes.get('/form/index/:id', ensureAuthMiddleware, FormController.index);
+routes.post('/form/update/:form_id', ensureAuthMiddleware, FormController.update);
+routes.post('/form/delete/:form_id', ensureAuthMiddleware, FormController.delete);
 
 // Question
 routes.post('/question/create/:form_id', ensureAuthMiddleware, QuestionController.create);
 routes.get('/question/index/:form_id', ensureAuthMiddleware, QuestionController.index);
 routes.get('/question/index/:form_id/user/:user_id', ensureAuthMiddleware, QuestionController.listByUserId);
 routes.get('/question/read', ensureAuthMiddleware, QuestionController.list);
+routes.post('/question/update/:question_id', ensureAuthMiddleware, QuestionController.update);
+routes.post('/question/delete/:question_id', ensureAuthMiddleware, QuestionController.delete);
 
 // Answer
 routes.post('/answer/create/:question_id', ensureAuthMiddleware, AnswerController.create);

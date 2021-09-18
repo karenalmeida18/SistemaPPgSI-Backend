@@ -1,4 +1,6 @@
 const Evaluation = require('../models/Evaluation');
+const SendEmail = require('../services/mail');
+const User = require('../models/User');
 
 module.exports = {
   async create(req, res) {
@@ -12,9 +14,6 @@ module.exports = {
     try {
       if (!user_id || !form_id) return res.status(400).json({ msg: ' missing fields' });
       const exist_adv_evaluation = await Evaluation.findOne({ where: { user_id, form_id } });
-      /* if (exist_adv_evaluation) {
-        const evaluation = Evaluation.findByPk(exist_adv_evaluation.id);
-      } */
       if ((user_type === 'advisor')) {
         if (!note_advisor) return res.status(400).json({ msg: ' missing the note of the evaluation' });
         if (!exist_adv_evaluation) {
@@ -24,6 +23,8 @@ module.exports = {
           return res.status(200).json({ msg: 'advisor evaluation successed' });
         }
         await exist_adv_evaluation.update({ note_advisor, selfguard_advisor });
+        const { email, name } = await User.findByPk(user_id);
+        SendEmail.send(email, name);
         return res.status(200).json({ msg: 'advisor evaluation successed' });
       }
       if ((user_type === 'ccp')) {
@@ -32,9 +33,12 @@ module.exports = {
           await Evaluation.create({
             user_id, form_id, note_ccp, selfguard_ccp,
           });
+          if (note_ccp && note_advisor) return SendEmail.send();
           return res.status(200).json({ msg: 'ccp evaluation successed' });
         }
         await exist_adv_evaluation.update({ note_ccp, selfguard_ccp });
+        const { email, name } = await User.findByPk(user_id);
+        SendEmail.send(email, name);
         return res.status(200).json({ msg: 'ccp evaluation successed' });
       }
       return res.status(403).json('forbidden');

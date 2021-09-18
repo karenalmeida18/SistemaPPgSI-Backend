@@ -38,4 +38,32 @@ module.exports = {
       return res.status(500).json({ msg: 'Internal server error' });
     }
   },
+
+  async update(req, res) {
+    const { form_id } = req.params;
+    const { user_type } = req.user;
+    const { enabled, name } = req.body;
+    try {
+      if (user_type !== 'ccp') return res.status(403).json({ msg: 'forbidden' });
+      const form = await Form.findByPk(form_id);
+      if (!form) return res.status(403).json({ msg: 'form not found' });
+      form.update({ enabled, name });
+      return res.status(200).json({ msg: 'form updated !' });
+    } catch (error) {
+      return res.status(500).json({ msg: 'Internal server error' });
+    }
+  },
+  async delete(req, res) {
+    const { form_id } = req.params;
+    const { user_type } = req.user;
+    try {
+      if (user_type !== 'ccp') return res.status(403).json({ msg: 'forbidden' });
+      const form = await Form.findByPk(form_id);
+      if (!form) return res.status(403).json({ msg: 'form not found' });
+      await form.destroy();
+      return res.status(200).json({ msg: 'form deleted !' });
+    } catch (error) {
+      return res.status(500).json({ msg: 'Internal server error' });
+    }
+  },
 };

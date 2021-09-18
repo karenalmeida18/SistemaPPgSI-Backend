@@ -91,4 +91,31 @@ module.exports = {
       return res.status(500).json({ msg: 'Internal server error' });
     }
   },
+  async update(req, res) {
+    const { question_id } = req.params;
+    const { description } = req.body;
+    const { user: { user_type } } = req;
+    try {
+      if (user_type !== 'ccp') return res.status(403).json({ msg: 'forbidden' });
+      const question = await Question.findByPk(question_id);
+      if (!question) res.status(404).json({ msg: 'Question not found' });
+      question.update({ description });
+      return res.status(200).json({ msg: 'question updated' });
+    } catch (error) {
+      return res.status(500).json({ msg: 'Internal server error' });
+    }
+  },
+  async delete(req, res) {
+    const { question_id } = req.params;
+    const { user_type } = req.user;
+    try {
+      if (user_type !== 'ccp') return res.status(403).json({ msg: 'forbidden' });
+      const question = await Question.findByPk(question_id);
+      if (!question) return res.status(403).json({ msg: 'question not found' });
+      await question.destroy();
+      return res.status(200).json({ msg: 'question deleted !' });
+    } catch (error) {
+      return res.status(500).json({ msg: 'Internal server error' });
+    }
+  },
 };
