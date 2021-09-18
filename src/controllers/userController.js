@@ -8,6 +8,8 @@ module.exports = {
     } = req.body;
 
     try {
+      if (!usp_code || !name || !password || !user_type || !email) return res.status(400).json({ msg: 'Missing fields' });
+
       const userExists = await User.findOne({ where: { usp_code } });
       if (userExists) return res.status(400).json({ msg: 'User already exist' });
 
@@ -29,13 +31,15 @@ module.exports = {
 
       return res.status(200).json(user);
     } catch (error) {
-      console.log(error);
       return res.status(500).json({ msg: 'Internal server error' });
     }
   },
 
   async read(req, res) {
     try {
+      const { user: { user_type } } = req;
+      if ((user_type !== 'ccp') && (user_type !== 'advisor')) return res.status(403).json('forbidden');
+
       const allUser = await User.findAll();
       if (allUser.length === 0) return res.status(404).json({ msg: 'No users found' });
       return res.status(200).json(allUser);
@@ -71,7 +75,7 @@ module.exports = {
     }
   },
 
-  async infoupdate(req, res) {
+  async update(req, res) {
     const {
       name, email, lattes, lattes_date, advisor, course,
     } = req.body;

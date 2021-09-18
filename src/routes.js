@@ -16,9 +16,9 @@ routes.get('/', (req, res) => res.json({ message: 'Hello world' }));
 routes.post('/user/create', UserController.create);
 routes.get('/user/read', ensureAuthMiddleware, UserController.read);
 routes.delete('/user/delete/:id', ensureAuthMiddleware, UserController.delete);
+routes.post('/user/update', ensureAuthMiddleware, UserController.update);
 routes.post('/user/login', SessionController.create);
 routes.get('/user/info', ensureAuthMiddleware, UserController.info);
-routes.post('/user/infoup', ensureAuthMiddleware, UserController.infoupdate);
 
 // Form
 routes.post('/form/create', ensureAuthMiddleware, FormController.create);
@@ -28,7 +28,7 @@ routes.get('/form/index/:id', ensureAuthMiddleware, FormController.index);
 // Question
 routes.post('/question/create/:form_id', ensureAuthMiddleware, QuestionController.create);
 routes.get('/question/index/:form_id', ensureAuthMiddleware, QuestionController.index);
-routes.get('/question/readByUserId/:form_id', ensureAuthMiddleware, QuestionController.listByUserId);
+routes.get('/question/index/:form_id/user/:user_id', ensureAuthMiddleware, QuestionController.listByUserId);
 routes.get('/question/read', ensureAuthMiddleware, QuestionController.list);
 
 // Answer
@@ -39,6 +39,7 @@ routes.get('/answer/read/:question_id', ensureAuthMiddleware, AnswerController.r
 // Evaluation
 routes.post('/evaluate/create/:form_id', ensureAuthMiddleware, EvaluationController.create);
 routes.get('/evaluate/read/:form_id', ensureAuthMiddleware, EvaluationController.read);
+routes.get('/evaluate/read/:form_id/user/:user_id', ensureAuthMiddleware, EvaluationController.readById);
 routes.get('/evaluate/list/:form_id', ensureAuthMiddleware, EvaluationController.list);
 
 module.exports = routes;

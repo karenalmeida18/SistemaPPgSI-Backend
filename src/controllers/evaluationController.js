@@ -56,6 +56,20 @@ module.exports = {
     }
   },
 
+  async readById(req, res) {
+    const { form_id, user_id } = req.params;
+
+    try {
+      if (!form_id || !user_id) return res.status(400).json({ msg: 'missing fields' });
+
+      const evaluation = await Evaluation.findAll({ where: { form_id, user_id } });
+      if (!evaluation || evaluation.length === 0) return res.status(400).json({ msg: 'evaluation not found' });
+      return res.status(200).json(evaluation);
+    } catch (error) {
+      return res.status(500).json({ msg: 'Internal server error' });
+    }
+  },
+
   async list(req, res) {
     const { user: { user_type } } = req;
     if ((user_type !== 'ccp') && (user_type !== 'advisor')) return res.status(403).json('forbidden');
