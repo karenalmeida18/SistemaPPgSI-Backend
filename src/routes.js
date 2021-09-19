@@ -24,6 +24,7 @@ routes.get('/user/info', ensureAuthMiddleware, UserController.info);
 routes.post('/form/create', ensureAuthMiddleware, FormController.create);
 routes.get('/form/read', ensureAuthMiddleware, FormController.read);
 routes.get('/form/index/:id', ensureAuthMiddleware, FormController.index);
+routes.get('/form/enabled/:id', ensureAuthMiddleware, FormController.readEnabled);
 routes.put('/form/update/:form_id', ensureAuthMiddleware, FormController.update);
 routes.delete('/form/delete/:form_id', ensureAuthMiddleware, FormController.delete);
 
