@@ -18,7 +18,7 @@ module.exports = {
   async read(req, res) {
     try {
       const { user: { user_type } } = req;
-      if (user_type !== 'ccp' || user_type !== 'advisor') return res.status(403).json({ msg: 'forbidden' });
+      if (user_type !== 'ccp' && user_type !== 'advisor') return res.status(403).json({ msg: 'forbidden' });
 
       const forms = await Form.findAll();
       if (forms.length === 0) return res.status(404).json({ msg: 'No forms found' });
