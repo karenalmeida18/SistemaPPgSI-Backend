@@ -16,7 +16,7 @@ routes.get('/', (req, res) => res.json({ message: 'Hello world' }));
 routes.post('/user/create', UserController.create);
 routes.get('/user/read', ensureAuthMiddleware, UserController.read);
 routes.delete('/user/delete/:id', ensureAuthMiddleware, UserController.delete);
-routes.post('/user/update', ensureAuthMiddleware, UserController.update);
+routes.put('/user/update', ensureAuthMiddleware, UserController.update);
 routes.post('/user/login', SessionController.create);
 routes.get('/user/info', ensureAuthMiddleware, UserController.info);
 
@@ -24,7 +24,7 @@ routes.get('/user/info', ensureAuthMiddleware, UserController.info);
 routes.post('/form/create', ensureAuthMiddleware, FormController.create);
 routes.get('/form/read', ensureAuthMiddleware, FormController.read);
 routes.get('/form/index/:id', ensureAuthMiddleware, FormController.index);
-routes.post('/form/update/:form_id', ensureAuthMiddleware, FormController.update);
+routes.put('/form/update/:form_id', ensureAuthMiddleware, FormController.update);
 routes.post('/form/delete/:form_id', ensureAuthMiddleware, FormController.delete);
 
 // Question
@@ -32,7 +32,7 @@ routes.post('/question/create/:form_id', ensureAuthMiddleware, QuestionControlle
 routes.get('/question/index/:form_id', ensureAuthMiddleware, QuestionController.index);
 routes.get('/question/index/:form_id/user/:user_id', ensureAuthMiddleware, QuestionController.listByUserId);
 routes.get('/question/read', ensureAuthMiddleware, QuestionController.list);
-routes.post('/question/update/:question_id', ensureAuthMiddleware, QuestionController.update);
+routes.put('/question/update/:question_id', ensureAuthMiddleware, QuestionController.update);
 routes.post('/question/delete/:question_id', ensureAuthMiddleware, QuestionController.delete);
 
 // Answer
