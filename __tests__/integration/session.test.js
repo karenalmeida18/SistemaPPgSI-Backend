@@ -9,7 +9,7 @@ describe('Testing user session ', () => {
     await request(app)
       .post('/user/create')
       .send({
-        name: 'Karen', usp_code: '12', user_type: 'student', password: '123',
+        name: 'Karen', usp_code: '12', user_type: 'student', password: '123', email: 'karenzinha@gmail.com',
       });
 
     const { status } = await request(app)

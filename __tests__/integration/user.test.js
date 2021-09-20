@@ -10,7 +10,7 @@ describe('Testing user crud ', () => {
     const { body } = await request(app)
       .post('/user/create')
       .send({
-        name: 'Maykon Douglas', usp_code: '18', user_type: 'student', password: '123',
+        name: 'Maykon Douglas', usp_code: '18', user_type: 'student', password: '123', email: 'maykinho@gmail.com',
       });
 
     expect(body).toHaveProperty('id');
@@ -20,13 +20,13 @@ describe('Testing user crud ', () => {
     await request(app)
       .post('/user/create')
       .send({
-        name: 'Gabriela Sinastre', usp_code: '1234', user_type: 'student', password: '123',
+        name: 'Gabriela', usp_code: '20', user_type: 'ccp', password: '456', email: 'gabrielinha@gmail.com',
       });
 
     const { status } = await request(app)
       .post('/user/create')
       .send({
-        name: 'Gabriela Sinastre', usp_code: '1234', user_type: 'student', password: '123',
+        name: 'Gabriela', usp_code: '20', user_type: 'ccp', password: '456', email: 'gabrielinha@gmail.com',
       });
 
     expect(status).toBe(400);
@@ -36,7 +36,7 @@ describe('Testing user crud ', () => {
     const { body } = await request(app)
       .post('/user/create')
       .send({
-        name: 'Leandro', usp_code: '50', user_type: 'student', password: '123',
+        name: 'Leandro', usp_code: '50', user_type: 'student', password: '123', email: 'leandrinho@gmail.com',
       });
 
     const { body: { token } } = await request(app)

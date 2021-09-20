@@ -10,7 +10,7 @@ describe('Testing question crud ', () => {
     await request(app)
       .post('/user/create')
       .send({
-        name: 'Gabriela', usp_code: '20', user_type: 'ccp', password: '456',
+        name: 'Gabriela', usp_code: '20', user_type: 'ccp', password: '456', email: 'gabrielinha@gmail.com',
       });
 
     const { body: { token, id } } = await request(app)
@@ -44,7 +44,7 @@ describe('Testing question crud ', () => {
     await request(app)
       .post('/user/create')
       .send({
-        name: 'Gabriela', usp_code: '20', user_type: 'ccp', password: '456',
+        name: 'Gabriela', usp_code: '20', user_type: 'ccp', password: '456', email: 'gabrielinha@gmail.com',
       });
 
     const { body: { token, id } } = await request(app)

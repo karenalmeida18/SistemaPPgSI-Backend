@@ -10,10 +10,10 @@ describe('Testing evaluation crud ', () => {
     await request(app)
       .post('/user/create')
       .send({
-        name: 'Gabriela', usp_code: '20', user_type: 'ccp', password: '456',
+        name: 'Gabriela', usp_code: '20', user_type: 'ccp', password: '456', email: 'gabrielinha@gmail.com',
       });
 
-    const { body: { token, id } } = await request(app)
+    const { body: { token } } = await request(app)
       .post('/user/login')
       .send({
         usp_code: '20', password: '456',
@@ -26,7 +26,7 @@ describe('Testing evaluation crud ', () => {
     const { status } = await request(app)
       .post('/evaluate/create/1')
       .send({
-        note_advisor: 'approved', selfguard_advisor: 'yayy', user_id: id, form_id: '1', note_ccp: 'okay', selfguard_ccp: 'okaay',
+        note_advisor: 'approved', selfguard_advisor: 'yayy', user_id: 1, form_id: 1, note_ccp: 'okay', selfguard_ccp: 'okaay',
       })
       .set('Authorization', `Bearer ${token}`);
 
@@ -37,7 +37,7 @@ describe('Testing evaluation crud ', () => {
     await request(app)
       .post('/user/create')
       .send({
-        name: 'Gabriela', usp_code: '20', user_type: 'ccp', password: '456',
+        name: 'Gabriela', usp_code: '20', user_type: 'ccp', password: '456', email: 'gabrielinha@gmail.com',
       });
 
     const { body: { token } } = await request(app)
